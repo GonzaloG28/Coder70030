@@ -1,6 +1,8 @@
 import PetDTO from "../dto/Pet.dto.js";
 import { petsService } from "../services/index.js"
+import { faker } from "@faker-js/faker"
 import __dirname from "../utils/index.js";
+import petModel from "../dao/models/Pet.js";
 
 const getAllPets = async(req,res)=>{
     const pets = await petsService.getAll();
@@ -13,6 +15,26 @@ const createPet = async(req,res)=> {
     const pet = PetDTO.getPetInputFrom({name,specie,birthDate});
     const result = await petsService.create(pet);
     res.send({status:"success",payload:result})
+}
+
+const createMocksPets = async (req, res, next) =>{
+    const pets = []
+    const { quantity } = req.params || 100
+    for(let i = 0; i < quantity; i++){
+        const pet = {
+            _id: faker.database.mongodbObjectId(),
+            name: faker.person.firstName().toLowerCase(),
+            specie: faker.animal.type(),
+            birthDate: faker.date.past(5),
+            adopted: false,
+            owner: null,
+            image: faker.image.url({width: 300, height: 300, category: "animals"})
+        }
+        const one = await petModel.create(pet)
+    }
+    return res.status(201).json({
+        message: quantity + "MOCK PETS CREATED"
+    })
 }
 
 const updatePet = async(req,res) =>{
@@ -48,5 +70,6 @@ export default {
     createPet,
     updatePet,
     deletePet,
-    createPetWithImage
+    createPetWithImage,
+    createMocksPets
 }
