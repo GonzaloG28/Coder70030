@@ -3,6 +3,7 @@ import { petsService } from "../services/index.js"
 import { faker } from "@faker-js/faker"
 import __dirname from "../utils/index.js";
 import petModel from "../dao/models/Pet.js";
+import Pet from "../dao/Pets.dao.js";
 
 const getAllPets = async(req,res)=>{
     const pets = await petsService.getAll();
@@ -19,7 +20,7 @@ const createPet = async(req,res)=> {
 
 const createMocksPets = async (req, res, next) =>{
     const pets = []
-    const { quantity } = req.params || 100
+    const quantity  = 100
     for(let i = 0; i < quantity; i++){
         const pet = {
             _id: faker.database.mongodbObjectId(),
@@ -33,7 +34,7 @@ const createMocksPets = async (req, res, next) =>{
         const one = await petModel.create(pet)
     }
     return res.status(201).json({
-        message: quantity + "MOCK PETS CREATED"
+        message: quantity + " MOCK PETS CREATED"
     })
 }
 
