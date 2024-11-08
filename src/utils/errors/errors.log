@@ -1,0 +1,6 @@
+[31mfatal[39m: POST /api/mocks/generateData - USERS VALIDATION FAILED: LAST_NAME: PATH `LAST_NAME` IS REQUIRED., FIRST_NAME: PATH `FIRST_NAME` IS REQUIRED.
+[31mfatal[39m: POST /api/mocks/generateData - NEXT IS NOT A FUNCTION
+[31mfatal[39m: POST /api/mocks/generateData - NEXT IS NOT A FUNCTION
+[31mfatal[39m: POST /api/mocks/generateData - CANNOT READ PROPERTIES OF UNDEFINED (READING 'QUANTITY')
+[31mfatal[39m: POST /api/mocks/generateData - CANNOT READ PROPERTIES OF UNDEFINED (READING 'STATUS')
+[31mfatal[39m: POST /api/mocks/generateData - CANNOT READ PROPERTIES OF UNDEFINED (READING 'STATUS')
