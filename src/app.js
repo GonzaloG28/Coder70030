@@ -11,10 +11,11 @@ import mocksRouter from "./routes/mocks.router.js"
 import dbConnect from "./utils/db.util.js";
 import errorHandler from './middleware/errorHandler.mid.js';
 import winston from './middleware/winstonLogger.mid.js';
+import env from "./utils/env.util.js"
 
 
 const app = express();
-const PORT = process.env.PORT||8080;
+const PORT = env.PORT||8080;
 dbConnect();
 
 app.use(express.json());
