@@ -22,7 +22,7 @@ const createMocksPets = async (req, res, next) =>{
         const one = await petModel.create(pet)
     }
         return res.status(201).json({
-            message: quantity + " MOCK USERS CREATED"
+            message: quantity + " MOCK PETS CREATED"
         })
 }
 
