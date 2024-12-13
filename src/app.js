@@ -30,16 +30,16 @@ app.use(express.urlencoded({ extended: true }));
 app.use(morgan("dev"))
 app.use(cookieParser());
 
+//documentacion
+const specs = swaggerJSDoc(opts)
+app.use("/api/docs", serve, setup(specs))
+
 //rutas servidor
 app.use('/api/users',usersRouter);
 app.use('/api/pets',petsRouter);
 app.use('/api/adoptions',adoptionsRouter);
 app.use('/api/sessions',sessionsRouter);
 app.use("/api/mocks", mocksRouter)
-
-//documentacion
-const specs = swaggerJSDoc(opts)
-app.use("/api/docs", serve, setup(specs))
 
 //middleware errores servidor
 app.use(winston)
