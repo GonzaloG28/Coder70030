@@ -1,5 +1,5 @@
 FROM node
-WORKDIR backend70030
+WORKDIR Backend70030
 COPY package*.json ./
 RUN npm install 
 COPY . .

@@ -1,5 +1,5 @@
 import { faker } from "@faker-js/faker"
-import bcrypt from "bcrypt"
+import bcrypt from "bcryptjs"
 import __dirname from "../utils/index.js";
 import petModel from "../dao/models/Pet.js";
 import userModel from "../dao/models/User.js";

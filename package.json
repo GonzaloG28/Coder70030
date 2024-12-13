@@ -9,7 +9,7 @@
     "test": "mocha ./test",
     "image": "docker build -t backend70030 .",
     "rename": "docker tag backend70030 gonza28/backend70030:1.0.0",
-    "push": "docker push gonza28/backend70030:1.0.0" 
+    "push": "docker push gonza28/backend70030:1.0.0"
   },
   "repository": {
     "type": "git",
@@ -24,7 +24,7 @@
   "description": "",
   "dependencies": {
     "@faker-js/faker": "^9.2.0",
-    "bcrypt": "^5.1.1",
+    "bcryptjs": "^2.4.3",
     "commander": "^12.1.0",
     "cookie-parser": "^1.4.7",
     "dotenv": "^16.4.5",
