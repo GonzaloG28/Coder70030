@@ -1,0 +1,299 @@
+components:
+  schemas:
+    Pet:
+      type: object
+      properties:
+        _id:
+          type: string
+          description: ID unico de la mascota
+          example: "3f0ea0bfcc503c76b32a4a4a"
+        name:
+          type: string
+          description: Nombre de la mascota
+          example: "maryam"
+        specie:
+          type: string
+          description: Especie de la mascota
+          example: "koala"
+        birthDate:
+          type: string
+          format: date
+          description: Fecha de nacimiento de la mascota
+          example: "2024-10-25"
+        adopted:
+          type: boolean
+          example: false
+          description: Estado de adopcion
+        owner:
+          type: string
+          nulleable: true
+          description: ID del dueño de la mascota
+          example: "7bbb8ab1ac3b7fe890fa68a4 or null"
+        image:
+          type: string
+          description: URL de la imagen de la mascota
+  responses:
+    success:
+      type: object
+      properties:
+        response:
+          type: object
+        message:
+          type: string
+paths:
+  /api/pets:
+    get:
+      summary: Obtener todas las mascotas
+      tags:
+        - Pets
+      responses:
+        200:
+          description: Lista de mascotas obtenidas con exito
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  payload:
+                    type: array
+                    items:
+                      $ref: "#components/schemas/Pet"
+        500:
+          description: Error interno del servidor
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: error
+                  error:
+                    types: string
+                    example: Error interno del servidor
+    post:
+      summary: Crear una mascota
+      tags:
+        - Pets
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: Nombre de la mascota
+                  example: "Buddy"
+                specie:
+                  type: string
+                  description: Especie de la mascota
+                  example: "Dog"
+                birthDate:
+                  type: string
+                  format: date
+                  description: Fecha de nacimiento de la mascota
+                  example: "2024-12-12"
+      responses:
+        200:
+          description: Mascota creada con exito
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/Pet'
+        400:
+          description: Datos incompletos
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: error
+                  error:
+                    types: string
+                    example: Incomplete values
+        500:
+          description: Error interno del servidor
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: error
+                  error:
+                    types: string
+                    example: Error interno del servidor
+  /api/pets/withimage:
+    post:
+      summary: Crear una mascota con imagen 
+      tags:
+        - Pets
+      description: Crea una nueva mascota inclyendo una imagen subida por el usuario
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: Nombre de la mascota
+                specie:
+                  type: string
+                  description: Especie de la mascota
+                birthDate:
+                  type: string
+                  format: date
+                  description: Fecha de nacimiento de la mascota
+                image:
+                  type: string
+                  format: binary
+                  description: Imagen de la mascota
+      responses:
+        200:
+          description: Mascota con imagen creada exitosamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  payload:
+                    $ref: "#/components/schemas/Pet"
+        400:
+          description: Datos incompletos
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: error
+                  error:
+                    types: string
+                    example: Incomplete values
+        500:
+          description: Error interno del servidor
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: error
+                  error:
+                    types: string
+                    example: Error interno del servidor
+  /api/pets/{pid}:
+    put:
+      summary: Modificar mascota
+      tags:
+        - Pets
+      description: Modifica los datos de una mascota existente
+      parameters:
+        - name: pid
+          in: path
+          required: true
+          description: ID de la mascota a modificar
+          schema:
+            type: string
+      requestBody:
+        description: Datos a actualizar de la mascota
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: Nombre de la mascota
+                  example: "Buddy"
+                specie:
+                  type: string
+                  description: Especie de la mascota
+                  example: "Dog"
+                birthDate:
+                  type: string
+                  format: date
+                  description: Fecha de nacimiento de la mascota
+                  example: "2024-12-12"
+      responses:
+        200:
+          description: Mascota modificada exitosamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: pet updated
+        500:
+          description: Error interno del servidor
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: error
+                  error:
+                    types: string
+                    example: Error interno del servidor
+    delete:
+      summary: Eliminar una mascota
+      tags:
+        - Pets
+      description: Elimina una mascota de la base de datos
+      parameters:
+        - name: pid
+          in: path
+          required: true
+          description: ID de la mascota a eliminar
+          schema:
+            type: string
+      responses:
+        200:
+          description: Mascota eliminada exitosamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: pet deleted
+        500:
+          description: Error interno del servidor
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: error
+                  error:
+                    types: string
+                    example: Error interno del servidor

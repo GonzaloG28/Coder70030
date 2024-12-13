@@ -8,7 +8,7 @@ import userModel from "../dao/models/User.js";
 const createMocksPets = async (req, res, next) =>{
     
         const pets = []
-        const quantity = 100
+        const quantity = 5
             for(let i = 0; i < quantity; i++){
                 const pet = {
                     _id: faker.database.mongodbObjectId(),
@@ -29,7 +29,7 @@ const createMocksPets = async (req, res, next) =>{
 const createMocksUsers = async (req, res, next) =>{
     
         const users = []
-        const quantity = 50
+        const quantity = 5
 
         for(let i = 0; i < quantity; i++){
             const password = await bcrypt.hash("coder123", 10)
